@@ -70,7 +70,42 @@ const deleteProduct = {
   command: "delete",
 };
 
-storehippo.call(deleteProduct, function (err, response) {
+const getDeletedUsers = {
+  entity: "ms.audit_logs",
+  fields: {
+    entity: 1,
+    resolvedEntity: 1,
+    resourceId: 1,
+    subStore: 1,
+    action: 1,
+    type: 1,
+    user: 1,
+    ip: 1,
+    primary__key: 1,
+    primary__value: 1,
+    created_on: 1,
+    _metadata: 1,
+  },
+  filters: [
+    {
+      field: "entity",
+      operator: "eq",
+      value: "ms.users",
+      field_data_type: "datetime",
+      flabel: "Entity",
+    },
+    {
+      field: "action",
+      operator: "eq",
+      value: "delete",
+      label: "DELETE",
+      flabel: "Action",
+    },
+  ],
+  command: "list",
+};
+
+storehippo.call(getDeletedUsers, function (err, response) {
   if (err) throw err;
   console.log(response);
 });
