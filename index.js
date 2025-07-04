@@ -1,11 +1,8 @@
 const storehippo = require("storehippo-nodejs-sdk")({
-  storename: "creative-space",
-  access_key: "c3fba59ef4b2bc37417d434809b7eaad",
+  storename: "your-store-name",
+  access_key: "your-access-key",
   version: "",
 });
-
-// newly created user ( role : IT ) access key : 3e1e5bb57f3e95c80258faf1c8f9b5f9
-// ( role : super admin ) access keys : c3fba59ef4b2bc37417d434809b7eaad
 
 // Authorization check
 const request1 = {
