@@ -7,8 +7,6 @@ const storehippo = require("storehippo-nodejs-sdk")({
 // newly created user ( role : IT ) access key : 3e1e5bb57f3e95c80258faf1c8f9b5f9
 // ( role : super admin ) access keys : c3fba59ef4b2bc37417d434809b7eaad
 
-// small change to check multiple accounts in git via ssh
-
 // Authorization check
 const request1 = {
   entity: "ms.products",
@@ -18,6 +16,11 @@ const request1 = {
   },
 };
 
+storehippo.call(request1, function (err, response) {
+  if (err) throw err;
+  console.log(response);
+});
+
 // user with Role IT don't have privilege to edit the product
 const request2 = {
   entity: "ms.products",
@@ -26,6 +29,11 @@ const request2 = {
     limit: 1,
   },
 };
+
+storehippo.call(request2, function (err, response) {
+  if (err) throw err;
+  console.log(response);
+});
 
 // Mutating the products
 const addNewProduct = {
@@ -57,6 +65,11 @@ const addNewProduct = {
   command: "add",
 };
 
+storehippo.call(addNewProduct, function (err, response) {
+  if (err) throw err;
+  console.log(response);
+});
+
 const editProduct = {
   entity: "ms.products",
   recordId: "68661c97a1dafeb0478eb1fe",
@@ -64,11 +77,20 @@ const editProduct = {
   command: "edit",
 };
 
+storehippo.call(editProduct, function (err, response) {
+  if (err) throw err;
+  console.log(response);
+});
 const deleteProduct = {
   entity: "ms.products",
   recordId: "68661c97a1dafeb0478eb1fe",
   command: "delete",
 };
+
+storehippo.call(deleteProduct, function (err, response) {
+  if (err) throw err;
+  console.log(response);
+});
 
 const getDeletedUsers = {
   entity: "ms.audit_logs",
