@@ -1,8 +1,35 @@
-const storehippo = require("storehippo-nodejs-sdk")({
-  storename: "your-store-name",
-  access_key: "your-access-key",
-  version: "",
+// const storehippo = require("storehippo-nodejs-sdk")({
+//   storename: "mystore5",
+//   access_key: "b522c336ef197faefbc7d4be6da5dcdf",
+//   version: "",
+// });
+
+const Taxjar = require("taxjar");
+
+const client = new Taxjar({
+  apiKey: "6efbfb214a416b322c24b84b9c9dd08e",
 });
+
+(async () => {
+  try {
+    const data = await client.categories();
+
+    const addNewTaxRecords = {
+      entity: "product_tax_codes",
+      data: {
+        tax_codes: data.categories,
+      },
+      command: "add",
+    };
+
+    storehippo.call(addNewTaxRecords, function (err, response) {
+      if (err) throw err;
+      console.log(response);
+    });
+  } catch (err) {
+    console.log("[Error Occurred]:", err);
+  }
+})();
 
 // Authorization check
 const request1 = {
@@ -127,4 +154,43 @@ const getDeletedUsers = {
 storehippo.call(getDeletedUsers, function (err, response) {
   if (err) throw err;
   console.log(response);
+});
+
+const storehippo = require("storehippo-nodejs-sdk")({
+  storename: "creative-space",
+  access_key: "7c86214f8413b27d7863b608e8bd3bea",
+  version: "",
+});
+
+const request = {
+  entity: "ms.sellers",
+  fields: {
+    title: 1,
+    email: 1,
+    phone: 1,
+    city: 1,
+    state: 1,
+    country: 1,
+    zip_code: 1,
+  },
+  query: {
+    filters: [
+      { field: "status", value: "approved", operator: "equal" },
+      { field: "zip_code", value: "560008", operator: "equal" },
+    ],
+  },
+  limit: 10,
+  command: "list",
+};
+
+storehippo.call(request, function (err, response) {
+  if (err) {
+    console.log(err);
+  }
+
+  console.log(response);
+
+  if (response && response.data) {
+    console.log(response.data);
+  }
 });

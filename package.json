@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "storehippo-nodejs-sdk": "^1.1.8"
+    "storehippo-nodejs-sdk": "^1.1.8",
+    "taxjar": "^4.1.0"
   }
 }
